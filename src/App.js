@@ -1,23 +1,22 @@
-import { Fragment } from 'react';
-import Header from './components/Layout/Header';
-import { Switch, Route, Router } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Specialty from './components/Specialty/Specialty';
-import Footer from './components/Footer/Footer'
 
+import React from "react";
+import { Router, Route } from 'react-router-dom';
+
+import { history } from './helpers/history';
+import { PrivateRoute } from './routing/PrivateRouter';
+import  HomePage  from './views/HomePage';
+import  LoginPage from './views/LoginPage';
+import "./styles.css";
 function App() {
   return (
- 
- <div>
-      <Header />
-      <Home/>
-    <Footer/>
-       </div>  
-      
-      /*   <div>
-         <Header />
-         <Specialty/>
-       </div>  */
+    <div className="App">
+       <Router history={history}>
+          <div>
+              <PrivateRoute exact path="/" component={HomePage} />
+              <Route path="/login" component={LoginPage} />
+          </div>
+       </Router>
+    </div>
   );
 }
 
