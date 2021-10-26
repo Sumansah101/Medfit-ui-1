@@ -1,0 +1,54 @@
+.Dermat{
+    padding-left: 50px;
+    height: 15rem;
+    width: 18rem;
+}
+.Physician{
+    padding-left: 52px;
+    height: 15rem;
+    width: 18rem;
+}
+
+.Specialty{
+    display: flex;  
+}
+
+.Specialty1{
+    display: flex; 
+    margin-top: 5%;  
+}
+
+.ENT{
+    padding-left: 54px;
+    height: 15rem;
+    width: 18rem;
+}
+
+.Ortho{
+    padding-left: 56px;
+    height: 15rem;
+    width: 18rem;
+}
+
+.Paediatric{
+    padding-left: 58px;
+    height: 15rem;
+    width: 18rem;
+}
+
+.Ophthal{
+    padding-left: 50px;
+    height: 15rem;
+    width: 18rem;
+}
+.Urology{
+    padding-left: 52px;
+    height: 15rem;
+    width: 18rem;
+}
+
+.Sexologist{
+    padding-left: 56px;
+    height: 15rem;
+    width: 18rem;
+}
