@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
+import {SignUp} from '../../services/auth.service'
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
-function RegistrationForm(props) {
+function RegistrationForm() {
 
     const [state , setState] = useState({
         email : "",
-        password : ""
+        password : "",
+        confirmPassword: "",
+        name:"",
+        role:""
     })
     const handleChange = (e) => {
         const {id , value} = e.target   
@@ -14,40 +20,36 @@ function RegistrationForm(props) {
         }))
     }
 
+    const dispatch = useDispatch();
+    const history=useHistory()
+
     const handleSubmitClick = (e) => {
         e.preventDefault();
         if(state.password === state.confirmPassword) {
             sendDetailsToServer()    
         } else {
-            props.showError('Passwords do not match');
+            console.log(state.password , state.confirmPassword)
         }
     }
 
     const sendDetailsToServer = () => {
+        console.log(state.email , state.password)
         if(state.email.length && state.password.length) {
-            props.showError(null);
+         
             const payload={
                 "email":state.email,
                 "password":state.password,
+                "name":state.name,
+                "role": state.role
             }
-            axios.post(API_BASE_URL+'/user/register', payload)
-                .then(function (response) {
-                    if(response.status === 200){
-                        setState(prevState => ({
-                            ...prevState,
-                            'successMessage' : 'Registration successful. Redirecting to home page..'
-                        }))
-                        redirectToHome();
-                        props.showError(null)
-                    } else{
-                        props.showError("Some error ocurred");
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });    
+            dispatch(SignUp({
+                payload
+            })).then(()=>{
+                history.push("/")
+            })  
+            console.log(payload)
         } else {
-            props.showError('Please enter valid username and password')    
+            console.log("esle1") 
         }
         
     }
@@ -64,7 +66,7 @@ function RegistrationForm(props) {
                        value={state.email}
                        onChange={handleChange}
                 />
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            
                 </div>
                 <div className="form-group text-left">
                 <label htmlFor="exampleInputEmail1">Email address</label>
@@ -77,6 +79,18 @@ function RegistrationForm(props) {
                        onChange={handleChange}
                 />
                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputEmail1">Role</label>
+                <input type="text" 
+                       className="form-control" 
+                       id="role" 
+                       aria-describedby="emailHelp" 
+                       placeholder="Enter role"
+                       value={state.role}
+                       onChange={handleChange}
+                />
+
                 </div>
                 <div className="form-group text-left">
                     <label htmlFor="exampleInputPassword1">Password</label>
@@ -94,6 +108,8 @@ function RegistrationForm(props) {
                         className="form-control" 
                         id="confirmPassword" 
                         placeholder="Confirm Password"
+                        value={state.confirmPassword}
+                        onChange={handleChange} 
                     />
                 </div>
                 <button 
