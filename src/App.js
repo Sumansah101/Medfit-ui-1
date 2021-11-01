@@ -11,15 +11,17 @@ import  HomePage  from './views/HomePage';
 import Specialty from "./components/Specialty/Specialty";
 import Header from './components/Layout/Header';
 import Footer from './components/Footer/Footer'
+import Doctor from "./components/Doctor-screen/Doctor";
+
 function App() {
   return (     
        <Router history={history}>
-              <Header />
+           {/*    <Header /> */}
               <Switch>
-                <Route exact path="/" component={HomePage} /> 
+                <Route exact path="/" component={Doctor} /> 
                 <Route path="/speciality/:specialityId" component={Specialty} />
             </Switch>
-            <Footer/>
+            {/* <Footer/> */}
        </Router>
   );
 }
